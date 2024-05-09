@@ -1,2 +1,2 @@
 changes
-Some more changes to a branch
+some more changes to a branch
