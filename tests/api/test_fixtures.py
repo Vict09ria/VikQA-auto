@@ -8,11 +8,14 @@ class User:
         self.second_name = "Butenko"
 
     def remove(self):
-        self.name = ""
-        self.second_name = ""
+        self.name = " "
+        self.second_name = " "
 
-    def test_changle_name():
+    def test_change_name():
         user = User()
+        user.create()
+
+        assert user.name == "Sergii"
         user.remove()
 
     def test_change_second_name():
