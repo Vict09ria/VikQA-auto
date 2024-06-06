@@ -16,3 +16,16 @@ class GitHub:
         body = r.json()
 
         return body
+
+    # Індивідуальна частина проекту
+    def get_emojis(self):
+        r = requests.get("https://api.github.com/emojis")
+        body = r.json()
+
+        return body
+
+    def get_commit(self, owner, repo, sha):
+        url = f"https://api.github.com/repos/{owner}/{repo}/commits/{sha}"
+        r = requests.get(url)
+        body = r.json()
+        return body
