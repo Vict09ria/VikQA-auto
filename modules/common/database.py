@@ -60,3 +60,17 @@ class Database:
         self.cursor.execute(query)
         record = self.cursor.fetchall()
         return record
+
+    # Індивідуальна частина тесту
+
+    def get_sellect_all_data(self):  # Одержати всі дані з таблиці customers
+        query = "SELECT * FROM customers"
+        self.cursor.execute(query)
+        record = self.cursor.fetchall()
+        return record
+
+    def get_country_user(self, country):
+        query = "SELECT country FROM customers WHERE country = ?"
+        self.cursor.execute(query, (country,))
+        record = self.cursor.fetchall()
+        return record

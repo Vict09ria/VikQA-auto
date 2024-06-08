@@ -68,3 +68,32 @@ def test_detailed_orders():
     assert orders[0][1] == "Sergii"
     assert orders[0][2] == "солодка вода"
     assert orders[0][3] == "з цукром"
+
+
+# Індивідуальна частина
+
+
+@pytest.mark.database  # Отримання всіх даних з колонки customers
+def test_select_all_data():
+    db = Database()
+    all = db.get_sellect_all_data()
+
+    print(all)
+
+
+@pytest.mark.database  # Перевірка країни покупців.
+# Отримання даних про кількість замовників з певної країни
+def test_check_country_user():
+    db = Database()
+    country = db.get_country_user("Ukraine")
+
+    # Перевірка, що список не порожній
+    assert len(country) > 0, "Список користувачів з країни Ukraine порожній"
+
+    # Перевірка першого запису
+    assert country[0][0] == "Ukraine"
+
+    # Якщо очікується більше записів, можна перевірити і їх, але тільки якщо впевнені, що вони існують
+    if len(country) > 1:
+        assert country[1][0] == "Ukraine"
+    print(len(country))

@@ -29,3 +29,8 @@ class GitHub:
         r = requests.get(url)
         body = r.json()
         return body
+
+    def get_non_exist_commit(self, owner, repo, sha):
+        url = f"https://api.github.com/repos/{owner}/{repo}/commits/{sha}"
+        r = requests.get(url)
+        return r.json()

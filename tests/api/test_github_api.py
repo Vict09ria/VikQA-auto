@@ -41,7 +41,7 @@ def test_find_emodji(github_api):
     assert len(emodjis) > 0
 
 
-@pytest.mark.api
+@pytest.mark.api  # Перевіряємо наявність комміту в репозиторії
 def test_repo_exsits(github_api):
     owner = "Vict09ria"
     repo = "VikQA-auto"
@@ -51,3 +51,11 @@ def test_repo_exsits(github_api):
     assert commit["sha"] == sha
     assert "commit" in commit
     assert "message" in commit["commit"]
+
+@pytest.mark.api  # Перевірка неіснуючого комміту
+def test__non_exist_commit(github_api):
+    owner = "Vict09ria"
+    repo = "VikQA-auto"
+    sha = "6dcb09b5b57875f334f61aebed695e2e4193db5e"
+    commit = github_api.get_non_exist_commit(owner, repo, sha)
+    assert "No commit found" in commit["message"]
