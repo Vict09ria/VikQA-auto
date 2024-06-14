@@ -70,19 +70,20 @@ def test_detailed_orders():
     assert orders[0][3] == "з цукром"
 
 
-# Індивідуальна частина
+# Індивідуальна частина проекту:
 
 
-@pytest.mark.database  # Отримання всіх даних з колонки customers
-def test_select_all_data():
+# Отримати всі дані з колонки customers
+@pytest.mark.database
+def test_sellect_all_data():
     db = Database()
     all = db.get_sellect_all_data()
 
     print(all)
 
 
-@pytest.mark.database  # Перевірка країни покупців.
-# Отримання даних про кількість замовників з певної країни
+# Отримати дані про кількість замовників з певної країни
+@pytest.mark.database
 def test_check_country_user():
     db = Database()
     country = db.get_country_user("Ukraine")
@@ -97,3 +98,42 @@ def test_check_country_user():
     if len(country) > 1:
         assert country[1][0] == "Ukraine"
     print(len(country))
+
+
+# Перевірка збільшення значення всіх значень в колонці "кількість на 5"
+@pytest.mark.database
+def test_product_update():
+    db = Database()
+    # Перевірка початкових значень:
+    initial_qnt = db.select_update_qnt()
+    print("Початкові значення:", initial_qnt)
+    db.update_product_qnt()
+    # Перевірка значень після оновлення
+    updated_qnt = db.select_update_qnt()
+    # Перевірка, що значення збільшились на 5
+    print("Значення після оновлення:", updated_qnt)
+    for initial, updated in zip(initial_qnt, updated_qnt):
+        assert (
+            updated[1] == initial[1] + 5
+        ), f"Помилка:{initial} \
+            не збільшилась на 5"
+    assert updated_qnt
+
+
+# Цей тест додає декілька товарів,
+# а потім перевіряє чи є в наявності додані товари в базі данних
+@pytest.mark.database
+def test_insert_many_products():
+    db = Database()
+    products = [
+        (5, "цукерки", "з горіхами", 25),
+        (6, "торт", "Київський", 10),
+        (7, "шоколад", "чорний", 20),
+    ]
+
+    db.insert_many_products(products)
+    result = db.select_update_qnt()
+    assert any(product[1] == 25 for product in result if product[0] == 5)
+    assert any(product[1] == 10 for product in result if product[0] == 6)
+    assert any(product[1] == 20 for product in result if product[0] == 7)
+    print(result)

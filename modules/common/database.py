@@ -61,16 +61,39 @@ class Database:
         record = self.cursor.fetchall()
         return record
 
-    # Індивідуальна частина тесту
+    # Індивідуальна частина проекту:
 
-    def get_sellect_all_data(self):  # Одержати всі дані з таблиці customers
+    # Отримати всі дані з таблиці customers
+    def get_sellect_all_data(self):
         query = "SELECT * FROM customers"
         self.cursor.execute(query)
         record = self.cursor.fetchall()
         return record
 
+    # Отримати дані про наявність користувачів з певної країни
     def get_country_user(self, country):
         query = "SELECT country FROM customers WHERE country = ?"
         self.cursor.execute(query, (country,))
         record = self.cursor.fetchall()
         return record
+
+    # Збільшити всі значення в колонці "кількість на 5"
+    def update_product_qnt(self):
+        query = "UPDATE products SET quantity = quantity + 5"
+        self.cursor.execute(query)
+        self.connection.commit()
+
+    # Отримати дані про зміни в таблиці продукти
+
+    def select_update_qnt(self):
+        query = "SELECT  id, quantity FROM products"
+        self.cursor.execute(query)
+        record = self.cursor.fetchall()
+        return record
+
+    # Метод,який додає нові товари до бази данних
+    def insert_many_products(self, products):
+        query = "INSERT OR REPLACE INTO products (id, name, description,quantity)\
+              VALUES (?, ?, ?, ?)"
+        self.cursor.executemany(query, products)
+        self.connection.commit()
