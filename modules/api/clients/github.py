@@ -17,7 +17,7 @@ class GitHub:
 
         return body
 
-    # Індивідуальна частина проекту
+    # Individual part of the project
     def get_emojis(self):
         r = requests.get("https://api.github.com/emojis")
         body = r.json()

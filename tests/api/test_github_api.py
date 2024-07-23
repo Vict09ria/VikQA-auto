@@ -32,16 +32,16 @@ def test_repo_with_single_char_be_found(github_api):
     assert r["total_count"] != 0
 
 
-# Індивідуальна частина проєкту
+# Individual part of the project:
 
 
-@pytest.mark.api  # Перевіряємо,чи є можливість використати емозді в гітхабі
+@pytest.mark.api  # We are checking whether it is possible to use emojis in github
 def test_find_emodji(github_api):
     emodjis = github_api.get_emojis()
     assert len(emodjis) > 0
 
 
-@pytest.mark.api  # Перевіряємо наявність комміту в репозиторії
+@pytest.mark.api  # We check the presence of a commit in the repository
 def test_repo_exsits(github_api):
     owner = "Vict09ria"
     repo = "VikQA-auto"
@@ -52,7 +52,7 @@ def test_repo_exsits(github_api):
     assert "commit" in commit
     assert "message" in commit["commit"]
 
-@pytest.mark.api  # Перевірка неіснуючого комміту
+@pytest.mark.api  # Checking for non-existent commit
 def test__non_exist_commit(github_api):
     owner = "Vict09ria"
     repo = "VikQA-auto"

@@ -6,7 +6,7 @@ from modules.common.database import Database
 def test_database_connection():
     db = Database()
     db.test_connection()
-
+    
 
 @pytest.mark.database
 def test_check_all_users():
@@ -14,7 +14,7 @@ def test_check_all_users():
     users = db.get_all_users()
 
     print(users)
-
+    
 
 @pytest.mark.database
 def test_check_user_sergii():
@@ -70,47 +70,47 @@ def test_detailed_orders():
     assert orders[0][3] == "з цукром"
 
 
-# Індивідуальна частина проекту:
+# Individual part of the project:
 
 
-# Отримати всі дані з колонки customers
+# Get all data from the customers column
 @pytest.mark.database
 def test_sellect_all_data():
     db = Database()
     all = db.get_sellect_all_data()
 
     print(all)
+    
 
-
-# Отримати дані про кількість замовників з певної країни
+# Get data on the number of customers from a certain country
 @pytest.mark.database
 def test_check_country_user():
     db = Database()
     country = db.get_country_user("Ukraine")
 
-    # Перевірка, що список не порожній
+    # Checking that the list is not empty
     assert len(country) > 0, "Список користувачів з країни Ukraine порожній"
 
-    # Перевірка першого запису
+    # Checking the first record
     assert country[0][0] == "Ukraine"
 
-    # Якщо очікується більше записів, можна перевірити і їх, але тільки якщо впевнені, що вони існують
+    # If more records are expected, you can check them as well, but only if you are sure they exist
     if len(country) > 1:
         assert country[1][0] == "Ukraine"
     print(len(country))
 
 
-# Перевірка збільшення значення всіх значень в колонці "кількість на 5"
+# Checking the increase in value of all values ​​in the "quantity by 5" column
 @pytest.mark.database
 def test_product_update():
     db = Database()
-    # Перевірка початкових значень:
+    # Checking the initial values:
     initial_qnt = db.select_update_qnt()
     print("Початкові значення:", initial_qnt)
     db.update_product_qnt()
-    # Перевірка значень після оновлення
+    # Validation of values ​​after update
     updated_qnt = db.select_update_qnt()
-    # Перевірка, що значення збільшились на 5
+    # Checking that the values ​​have increased by 5
     print("Значення після оновлення:", updated_qnt)
     for initial, updated in zip(initial_qnt, updated_qnt):
         assert (
@@ -120,8 +120,8 @@ def test_product_update():
     assert updated_qnt
 
 
-# Цей тест додає декілька товарів,
-# а потім перевіряє чи є в наявності додані товари в базі данних
+# This test adds several products,
+# and then checks whether the added products are available in the database
 @pytest.mark.database
 def test_insert_many_products():
     db = Database()
@@ -137,3 +137,13 @@ def test_insert_many_products():
     assert any(product[1] == 10 for product in result if product[0] == 6)
     assert any(product[1] == 20 for product in result if product[0] == 7)
     print(result)
+
+
+# A test that checks the left-hand union of two tables\
+# Customers Orders
+@pytest.mark.database
+def test_left_join_orders():
+    db = Database()
+    orders = db.get_left_join_orders()
+    print("Замовлення", orders)
+    assert orders

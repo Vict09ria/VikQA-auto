@@ -97,3 +97,13 @@ class Database:
               VALUES (?, ?, ?, ?)"
         self.cursor.executemany(query, products)
         self.connection.commit()
+
+    # Метод,який повертає всі записи з cutomers таблиці \
+    # та відповідні записи з orders таблиці
+    def get_left_join_orders(self):
+        query = "SELECT orders.id,customers.name FROM customers \
+                LEFT JOIN orders ON orders.customer_id = customers.id\
+                    ORDER BY customers.name"
+        self.cursor.execute(query)
+        record = self.cursor.fetchall()
+        return record
