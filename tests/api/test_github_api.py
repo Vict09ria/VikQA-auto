@@ -16,7 +16,14 @@ def test_user_not_exists(github_api):
 @pytest.mark.api
 def test_repo_can_be_found(github_api):
     r = github_api.search_repo("become-qa-auto")
-    assert r["total_count"] == 57
+    # выводим в терминал количество сущенствующих репозиториев с именем "become-qa-auto"
+    # Команда в терминале GitBush: pytest -m api -s
+    # total_count = r['total_count']
+    # print(f"total_count is {total_count}")
+
+    # Перевірка кількості репозиторіїв
+    assert r["total_count"] == 59
+    # перший знайдений репозиторій буде містити в собі ім'я "become-qa-auto"
     assert "become-qa-auto" in r["items"][0]["name"]
 
 

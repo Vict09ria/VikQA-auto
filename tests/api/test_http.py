@@ -18,11 +18,11 @@ def test_second_request():
 
     assert body['name'] == 'Chris Wanstrath'
     assert r.status_code == 200
-    assert headers['Server'] == 'GitHub.com'
+    assert headers['Server'] == 'github.com'
 
 
 @pytest.mark.http
 def test_status_code_reguest():
-    r = requests.get('https://api.github.com/users/sergii_butenko')
+    r = requests.get('https://api.github.com/users/viktoriya_zalizniyak')
 
     assert r.status_code == 404
