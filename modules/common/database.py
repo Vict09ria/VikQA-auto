@@ -61,29 +61,29 @@ class Database:
         record = self.cursor.fetchall()
         return record
 
-    # Індивідуальна частина проекту:
+    # Individual part of the project:
 
-    # Отримати всі дані з таблиці customers
+    # Retrieve all data from the customers table
     def get_sellect_all_data(self):
         query = "SELECT * FROM customers"
         self.cursor.execute(query)
         record = self.cursor.fetchall()
         return record
 
-    # Отримати дані про наявність користувачів з певної країни
+    # Remove data about the presence of koristuvachs from the singing land
     def get_country_user(self, country):
         query = "SELECT country FROM customers WHERE country = ?"
         self.cursor.execute(query, (country,))
         record = self.cursor.fetchall()
         return record
 
-    # Збільшити всі значення в колонці "кількість на 5"
+    # Increase all values ​​in the "increase by 5" column
     def update_product_qnt(self):
         query = "UPDATE products SET quantity = quantity + 5"
         self.cursor.execute(query)
         self.connection.commit()
 
-    # Отримати дані про зміни в таблиці продукти
+    # Obtain data about changes in the products table
 
     def select_update_qnt(self):
         query = "SELECT  id, quantity FROM products"
@@ -91,15 +91,15 @@ class Database:
         record = self.cursor.fetchall()
         return record
 
-    # Метод,який додає нові товари до бази данних
+    # Method that adds new products to the database
     def insert_many_products(self, products):
         query = "INSERT OR REPLACE INTO products (id, name, description,quantity)\
               VALUES (?, ?, ?, ?)"
         self.cursor.executemany(query, products)
         self.connection.commit()
 
-    # Метод,який повертає всі записи з cutomers таблиці \
-    # та відповідні записи з orders таблиці
+    # A method that rotates all records from the cutomers table \ 
+    # and typed records from the orders table
     def get_left_join_orders(self):
         query = "SELECT orders.id,customers.name FROM customers \
                 LEFT JOIN orders ON orders.customer_id = customers.id\

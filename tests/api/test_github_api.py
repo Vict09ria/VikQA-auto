@@ -16,14 +16,15 @@ def test_user_not_exists(github_api):
 @pytest.mark.api
 def test_repo_can_be_found(github_api):
     r = github_api.search_repo("become-qa-auto")
-    # выводим в терминал количество сущенствующих репозиториев с именем "become-qa-auto"
-    # Команда в терминале GitBush: pytest -m api -s
-    # total_count = r['total_count']
-    # print(f"total_count is {total_count}")
 
-    # Перевірка кількості репозиторіїв
+# print to the terminal the number of existing repositories with the name "become-qa-auto"
+# Command in the GitBush terminal: pytest -m api -s
+# total_count = r['total_count']
+# print(f"total_count is {total_count}")
+
+    # Checking the number of repositories
     assert r["total_count"] == 59
-    # перший знайдений репозиторій буде містити в собі ім'я "become-qa-auto"
+    # The first repository found will contain the name "become-qa-auto"
     assert "become-qa-auto" in r["items"][0]["name"]
 
 
@@ -41,14 +42,14 @@ def test_repo_with_single_char_be_found(github_api):
 
 # Individual part of the project:
 
-
-@pytest.mark.api  # We are checking whether it is possible to use emojis in github
+# We are checking whether it is possible to use emojis in github
+@pytest.mark.api  
 def test_find_emodji(github_api):
     emodjis = github_api.get_emojis()
     assert len(emodjis) > 0
 
-
-@pytest.mark.api  # We check the presence of a commit in the repository
+# We check the presence of a commit in the repository
+@pytest.mark.api  
 def test_repo_exsits(github_api):
     owner = "Vict09ria"
     repo = "VikQA-auto"
@@ -59,7 +60,8 @@ def test_repo_exsits(github_api):
     assert "commit" in commit
     assert "message" in commit["commit"]
 
-@pytest.mark.api  # Checking for non-existent commit
+# Checking for non-existent commit
+@pytest.mark.api  
 def test__non_exist_commit(github_api):
     owner = "Vict09ria"
     repo = "VikQA-auto"

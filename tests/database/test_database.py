@@ -6,13 +6,14 @@ from modules.common.database import Database
 def test_database_connection():
     db = Database()
     db.test_connection()
+    assert db.connection is not None, "Connection to database failed"
     
 
 @pytest.mark.database
 def test_check_all_users():
     db = Database()
     users = db.get_all_users()
-
+    assert users is not None and len(users) > 0, "Users list is empty"
     print(users)
     
 
@@ -32,7 +33,6 @@ def test_product_qnt_update():
     db = Database()
     db.update_product_qnt_by_id(1, 25)
     water_qnt = db.select_product_qnt_by_id(1)
-
     assert water_qnt[0][0] == 25
 
 
@@ -41,7 +41,6 @@ def test_product_insert():
     db = Database()
     db.insert_product(4, "печиво", "солодке", 30)
     water_qnt = db.select_product_qnt_by_id(4)
-
     assert water_qnt[0][0] == 30
 
 
@@ -51,7 +50,6 @@ def test_product_delete():
     db.insert_product(99, "тестові", "дані", 999)
     db.delete_product_by_id(99)
     qnt = db.select_product_qnt_by_id(99)
-
     assert len(qnt) == 0
 
 
@@ -78,7 +76,7 @@ def test_detailed_orders():
 def test_sellect_all_data():
     db = Database()
     all = db.get_sellect_all_data()
-
+    assert all is not None and len(all) > 0, "All data list is empty"
     print(all)
     
 
@@ -87,14 +85,11 @@ def test_sellect_all_data():
 def test_check_country_user():
     db = Database()
     country = db.get_country_user("Ukraine")
-
-    # Checking that the list is not empty
+   # Checking that the list is not empty
     assert len(country) > 0, "Список користувачів з країни Ukraine порожній"
-
-    # Checking the first record
+   # Checking the first record
     assert country[0][0] == "Ukraine"
-
-    # If more records are expected, you can check them as well, but only if you are sure they exist
+   # If more records are expected, you can check them as well, but only if you are sure they exist
     if len(country) > 1:
         assert country[1][0] == "Ukraine"
     print(len(country))

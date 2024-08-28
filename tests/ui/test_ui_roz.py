@@ -15,18 +15,18 @@ def test_check_incorrect_email():
 # Створення об'єкту для керування браузером
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 
-# Відкриваємо сторінку https://github.com/login
+# Відкрити сторінку "https://rozetka.com.ua"
     driver.get("https://rozetka.com.ua")
 
-# Знаходимо  пошукове поле, в яке будемо вводити назву товару
+# Знайти  пошукове поле, в яке будемо вводити назву товару
     search_field = driver.find_element(By.NAME,"search")
-# Вводимо в пошукове поле назву товару
+# Ввести в пошукове поле назву товару
     search_field.send_keys("Ноутбуки")
-# Знаходимо кнопку активації пошуку
+# Знайти кнопку активації пошуку
     btn_elem = driver.find_element(By.XPATH, "/html/body/rz-app-root/div/div/rz-header/rz-main-header/header/div/div/div/rz-search-suggest/form/button")
 # Emulate a click with the left mouse button
     btn_elem.click()
     time.sleep(3)
 
-# Закриваємо браузер
+# Закрити браузер
     driver.close()
