@@ -12,22 +12,22 @@ class SignInPage(BasePage):
         self.driver.get(SignInPage.URL)
 
     def try_login(self, username,password):
-        # Знаходимо поле,в яке будемо вводити неправильне ім'я користувача або поштову адресу
+        # We know the field, in which we will enter incorrectly the name of the koristuvach or the mailing address
         login_elem = self.driver.find_element(By.ID, "login_field")
 
-        # Вводимо неправильне ім'я користувача або поштову адресу
+        # The accountant's name or mailing address is entered incorrectly
         login_elem.send_keys(username)
 
-        # Знаходимо поле, в яке будемо вводити неправильний пароль
+        # We know the field, in this case we will enter the wrong password
         pass_elem = self.driver.find_element(By.ID, "password")
 
-        # Вводимо неправильний пароль
+        # Entering the wrong password
         pass_elem.send_keys(password)
 
-        # Знаходимо кнопку sign in
+        # Know the sign in button
         btn_elem = self.driver.find_element(By.NAME, "commit")
 
-        # Емулюємо клік лівою кнопкою мишки
+        # It is possible to click the left button of the bear
         btn_elem.click()
 
     def check_title(self,expected_title):
